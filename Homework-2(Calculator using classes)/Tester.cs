@@ -18,7 +18,7 @@ namespace Homework_2_Calculator_using_classes_
         private char optr;
         private readonly char[] delimiterChars = { '-', '+', '/', '*' };
         private Double number1 , number2;
-        
+        public  bool error = false;
 
         public char Optr
         { 
@@ -52,7 +52,7 @@ namespace Homework_2_Calculator_using_classes_
         public void Test()
         {
             string[] numbers = input.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
-
+            error = false;
             try
             {
                 if ((numbers.Length <= 1) || (numbers.Length > 2))
@@ -73,7 +73,7 @@ namespace Homework_2_Calculator_using_classes_
                 int x = input.IndexOfAny(delimiterChars, 1);
                 optr = input[x];
 
-                if (input[x + 1] == '-')
+                if ((input[x + 1] == '-') && (Char.IsDigit(input[x + 1])))
                 {
                     Double.TryParse(numbers[1], out number2);
                     number2 *= -1;
@@ -102,16 +102,19 @@ namespace Homework_2_Calculator_using_classes_
 
             catch (InvalidInput e)
             {
-                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.Message);
+                error = true;
             }
 
             catch (DivideByZeroException e)
             {
-                Console.WriteLine(e.Message);   
+                Console.WriteLine(e.Message);
+                error = true;
             }
 
             catch (Exception e)
             {
+                error = true;
                 Console.WriteLine(e.Message);
             }
 

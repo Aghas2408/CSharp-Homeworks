@@ -23,6 +23,7 @@ namespace Homework_2_Calculator_using_classes_
                 var Tester_obj = new Tester(input);
                 Tester_obj.Test();
                 var Calculator_obj = new Calculator(Tester_obj.Number1, Tester_obj.Number2, Tester_obj.Optr);
+                if(!Tester_obj.error)
                 Calculator_obj.Calculate();
             }
         }
