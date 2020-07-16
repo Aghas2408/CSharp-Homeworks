@@ -12,7 +12,9 @@ namespace Homework1
     }
     class Program
     {
-        static void Main(string[] args)
+
+
+        static void Main()
         {
             Console.WriteLine("Hello.This is Calculator");
             Console.WriteLine("If you want to finish please enter  'end' ");
@@ -20,134 +22,126 @@ namespace Homework1
 
             while (true)
             {
+                Console.WriteLine("Please enter a mathematical expression ");
+                char optr;
+                char[] delimiterChars = { '-', '+', '/', '*' };
+                Double number1, number2, output = 0;
                 try
                 {
-
-                    Console.WriteLine("Please enter a mathematical expression ");
+                   
                     String input = Console.ReadLine();
                     if (input == "end")
                     {
                         break;
                     }
-                    String number1_string = "";
-                    String number2_string = "";
-                    Char optr = ' ';
-                    if (!Char.IsDigit(input[0]))
+                   
+                    string[] numbers = input.Split(delimiterChars, System.StringSplitOptions.RemoveEmptyEntries);
+                     
+                    if ((numbers.Length <= 1) || (numbers.Length >2))
                     {
                         throw new InvalidInput();
                     }
-                    for (int i = 0; i < input.Length; i++)
+                    if (input[0] == '-')
                     {
 
-                        while (Char.IsDigit(input[i]) || (input[i] == ','))
-                        {
-                            number1_string += input[i];
-                            i++;
-                            if (i == input.Length) break;
-                        }
-
-
-
-
-                        switch (input[i])
-                        {
-                            case '+':
-                                {
-                                    optr = '+';
-                                    i++;
-                                }
-
-                                break;
-                            case '-':
-                                {
-                                    optr = '-';
-                                    i++;
-                                }
-
-                                break;
-                            case '*':
-                                {
-                                    optr = '*';
-                                    i++;
-                                }
-
-                                break;
-                            case '/':
-                                {
-                                    optr = '/';
-                                    i++;
-                                }
-
-                                break;
-
-                        }
-                        if ((!Char.IsDigit(input[i]) || (i - 1 == input.Length - 1)))
-                        {
-                            throw new InvalidInput();
-
-                        }
-
-
-
-
-                        if (Char.IsDigit(input[i]))
-                        {
-                            while (Char.IsDigit(input[i]) || (input[i] == ','))
-                            {
-                                number2_string += input[i];
-                                i++;
-                                if (i == input.Length) break;
-                            }
-
-                            if (i != input.Length)
-                            {
-                                throw new InvalidInput();
-                            }
-
-                        }
-
-
+                        Double.TryParse(numbers[0], out number1);
+                        number1 *= -1;
                     }
-                    Double number1;
-                    Double.TryParse(number1_string, out number1);
-                    Double number2;
-                    Double.TryParse(number2_string, out number2);
-                    Double output = 0;
-                    if (optr == '/' && number2 == 0)
+                    else
                     {
+
+                        Double.TryParse(numbers[0], out number1);
+                    }
+
+                    int x = input.IndexOfAny(delimiterChars, 1);
+                    optr = input[x];
+
+                    if ((input[x + 1] == '-') && (Char.IsDigit(input[x + 1])))
+                    {
+                        Double.TryParse(numbers[1], out number2);
+                        number2 *= -1;
+                    }
+                    else if (!Char.IsDigit(input[x + 1]))
+                    {
+                        throw  new InvalidInput();
+                    }
+                    else if (input.IndexOfAny(delimiterChars, x+1) != -1)
+                    {
+                        throw new InvalidInput();
+                    }
+                    else
+                    {
+                        Double.TryParse(numbers[1], out number2);
+                    }
+
+                    if ((optr=='/') && (number2 == 0)){
                         throw new DivideByZeroException();
                     }
-                    switch (optr)
-
-                    {
-                        case '+': output = number1 + number2; break;
-                        case '-': output = number1 - number2; break;
-                        case '*': output = number1 * number2; break;
-                        case '/': output = number1 / number2; break;
-
-                    }
-                    Console.WriteLine(output);
                 }
+              
                 catch (InvalidInput e)
                 {
                     Console.WriteLine(e.Message);
+                    continue;
                 }
 
                 catch (DivideByZeroException e)
                 {
                     Console.WriteLine(e.Message);
+                    continue;
                 }
 
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    continue;
 
                 }
 
 
 
+                switch (optr)
+                {
+                    case '+':
+                        {
+                           
+                            output = number1 + number2;
+                        }
 
+                        break;
+                    case '-':
+                        {
+                           
+                            output = number1 - number2;
+                        }
+
+                        break;
+                    case '*':
+                        {
+                          
+                            output = number1 * number2;
+                        }
+
+                        break;
+                    case '/':
+                        {
+                           
+                            output = number1 / number2;
+                        }
+                        break;
+
+                }
+                Console.WriteLine(output);
+
+              
             }
+
+
+
+
+
+
+
         }
     }
 }
