@@ -11,8 +11,9 @@ namespace Homework_2_Calculator_using_classes_
             Console.WriteLine("Hello.This is Calculator");
             Console.WriteLine("If you want to finish please enter  'end' ");
             Console.WriteLine("You can use ',' for float numbers and /,*,-,+ as operators.");
+            var Calculator_obj = new Calculator();
             while (true)
-
+                
             {
                 Console.WriteLine("Please enter a mathematical expression ");
                 var input = Console.ReadLine();
@@ -20,11 +21,12 @@ namespace Homework_2_Calculator_using_classes_
                 {
                     break;
                 }
-                var Tester_obj = new Tester(input);
-                Tester_obj.Test();
-                var Calculator_obj = new Calculator(Tester_obj.Number1, Tester_obj.Number2, Tester_obj.Optr);
-                if(!Tester_obj.error)
-                Calculator_obj.Calculate();
+           
+                Calculator_obj.Calculate(input);
+              
+
+
+
             }
         }
     }

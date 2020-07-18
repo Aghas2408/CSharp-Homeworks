@@ -6,50 +6,60 @@ namespace Homework_2_Calculator_using_classes_
 {
     class Calculator
     {
-        private readonly Double number1, number2;
+        private  Double number1, number2;
         private Double output;
-        private readonly Char optr;
-        public Calculator(double n1, double n2, char optr)
+        private   Char optr;
+        private  readonly Validator validator=new Validator();
+      
+         public Calculator()
         {
-            this.number1 = n1;
-            this.number2 = n2;
-            this.optr = optr;
+
         }
 
-        public void Calculate()
+        public void Calculate(string input)
         {
-            switch (optr)
-            {
-                case '+':
-                    {
+           
 
-                        output = number1 + number2;
-                    }
+            if (validator.Test(input))
+                {
+                this.number1 = validator.Number1;
+                this.number2 = validator.Number2;
+                this.optr = validator.Optr;
 
-                    break;
-                case '-':
-                    {
+                switch (optr)
+                {
+                    case '+':
+                        {
 
-                        output = number1 - number2;
-                    }
+                            output = number1 + number2;
+                        }
 
-                    break;
-                case '*':
-                    {
+                        break;
+                    case '-':
+                        {
 
-                        output = number1 * number2;
-                    }
+                            output = number1 - number2;
+                        }
 
-                    break;
-                case '/':
-                    {
+                        break;
+                    case '*':
+                        {
 
-                        output = number1 / number2;
-                    }
-                    break;
+                            output = number1 * number2;
+                        }
 
-            }
-            Console.WriteLine(output);
+                        break;
+                    case '/':
+                        {
+
+                            output = number1 / number2;
+                        }
+                        break;
+
+                }
+                Console.WriteLine(output);
+                }
+        
 
         }
     }
