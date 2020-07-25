@@ -40,7 +40,7 @@ namespace SortedMultiMap
                     {
                         if (i.Value.Contains(b))
                         {
-                            Console.WriteLine(" this pari {0},{1} already exist",i.Key,b);
+                            Console.WriteLine(" this pair {0},{1} already exists",i.Key,b);
                             break;
                         }
                         i.Value.Add(b);
@@ -62,6 +62,7 @@ namespace SortedMultiMap
             
                 if (!hash_list.Contains(hash))
                 {
+
                 return null;
 
                 }
@@ -95,13 +96,15 @@ namespace SortedMultiMap
             {
                 if (!hash_list.Contains(hash))
                 {
-                    throw new SortedMapDosntContainThisKey();
+                    throw new SortedMapDosntContainThisKeyOrValue();
 
                 }
                 else
                 {
+                    int count = 0;
                     foreach (var i in elements)
                     {
+                       
                         if (i.Key.GetHashCode() == hash)
                         {
                             if (i.Value.Count == 1)
@@ -117,11 +120,14 @@ namespace SortedMultiMap
                             }
 
                         }
+                        count++;
                     }
+                    if(count==elements.Count)
+                    throw new SortedMapDosntContainThisKeyOrValue();
                 }
             }
 
-            catch (SortedMapDosntContainThisKey e)
+            catch (SortedMapDosntContainThisKeyOrValue e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -135,7 +141,7 @@ namespace SortedMultiMap
 
                 if (!hash_list.Contains(hash))
                 {
-                    throw new SortedMapDosntContainThisKey();
+                    throw new SortedMapDosntContainThisKeyOrValue();
 
                 }
                 else
@@ -153,7 +159,7 @@ namespace SortedMultiMap
 
                 }
             }
-            catch (SortedMapDosntContainThisKey e)
+            catch (SortedMapDosntContainThisKeyOrValue e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -171,18 +177,10 @@ namespace SortedMultiMap
                 {
                     yield return new KeyValuePair<K, V>(i.Key, j);
                 }
-                  
-               
-            
-                
-               
+
             }
 
         }
 
-
-
-
-     
     }
 }

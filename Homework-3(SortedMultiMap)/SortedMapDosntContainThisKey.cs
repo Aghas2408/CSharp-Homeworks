@@ -4,12 +4,12 @@ using System.Text;
 
 namespace SortedMultiMap
 {
-      class SortedMapDosntContainThisKey:Exception
+      class SortedMapDosntContainThisKeyOrValue: Exception
        {
 
-        public SortedMapDosntContainThisKey()
+        public SortedMapDosntContainThisKeyOrValue()
         {
-            Console.WriteLine("Invalid Key");
+            Console.WriteLine("Invalid Key or Value");
 
         }
 
