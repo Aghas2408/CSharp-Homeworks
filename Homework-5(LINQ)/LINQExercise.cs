@@ -17,7 +17,7 @@ namespace Lesson5.Exercise
         {
             // init temp data
             var disciplines = this.InitDisciplines();
-
+        
             // Find the count of all students
             var allStudentsCount = disciplines.Select(discipline => discipline.GetStudents()).Sum(st => st.Count());
          
@@ -49,7 +49,7 @@ namespace Lesson5.Exercise
             //Homework
 
             //2.The names of students for a specific discipline.
-            var studentsForSSpecDisc = disciplines.Select(studentsforspecdisc => new
+            var studentsforSSpecDisc = disciplines.Select(studentsforspecdisc => new
             {
                 students = studentsforspecdisc.GetStudents(),
                 disciplineName = studentsforspecdisc.Name
@@ -66,12 +66,19 @@ namespace Lesson5.Exercise
 
             // 8.The pairs of student name and discipline name(students are assigned to discipline).
 
-            var studentandDisciplinePair = disciplines.Select(studentsforspecdisc => new
-            {
-                students = studentsforspecdisc.GetStudents(),
-                disciplineName = studentsforspecdisc.Name
+            var selectedUsers = from discipline in disciplines
+                                from StudentName in discipline.GetStudents()
+                                select new
+                                {
+                                    disciplineName = discipline.Name,
+                                    studentName = StudentName.Name,
+                                    studentSurName = StudentName.Surname
+                               };
 
-            });
+            //10.The names of all students which age is less than 30.
+            var students = disciplines.SelectMany(discipline => discipline.GetStudents()).Where(s => s.Age <= 30).GroupBy(g => new { g.Name, g.Surname, g.Age });
+           
+
         }
 
         /// <summary>
@@ -113,10 +120,10 @@ namespace Lesson5.Exercise
         {
             return new List<Student>
             {
-                new Student("John", "Smith"),
-                new Student("Ann", "Jones"),
-                new Student("Mary", "Wilson"),
-                new Student("William", "Jackson"),
+                new Student("John", "Smith",19),
+                new Student("Ann", "Jones",38),
+                new Student("Mary", "Wilson",18),
+                new Student("William", "Jackson",18),
              
             };
         }
@@ -155,14 +162,14 @@ namespace Lesson5.Exercise
         {
             return new List<Student>
             {
-                new Student("John", "Smith"),
-                new Student("Ann", "Jones"),
-                new Student("Alice", "White"),
-                new Student("William", "Jackson"),
-                new Student("Robert", "Harris"),
-                new Student("Sophia", "Turner"),
-                new Student("Edward", "Wood"),
-                new Student("Martha", "Hall"),
+                new Student("John", "Smith",45),
+                new Student("Ann", "Jones",15),
+                new Student("Alice", "White",17),
+                new Student("William", "Jackson",28),
+                new Student("Robert", "Harris",31),
+                new Student("Sophia", "Turner",18),
+                new Student("Edward", "Wood",34),
+                new Student("Martha", "Hall",30),
             };
         }
 
